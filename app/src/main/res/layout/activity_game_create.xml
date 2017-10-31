@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00d0ff"
+    tools:context="com.example.kmccull.sql.GameCreate">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:weightSum="1">
+
+        <TextView
+            android:id="@+id/CreateGameTextview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="47dp"
+            android:text="Create A Game"
+            android:textAlignment="center"
+            android:textColor="#ffffff"
+            android:textSize="40sp"
+            tools:fontFamily="casual"
+            tools:layout_editor_absoluteX="7dp"
+            tools:layout_editor_absoluteY="16dp" />
+
+        <EditText
+            android:id="@+id/txtGameName"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_alignEnd="@+id/registerTextview"
+            android:layout_below="@+id/registerTextview"
+            android:layout_marginTop="10dp"
+            android:background="#5d5d5d"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:hint="Name of your Game?"
+            android:inputType="textPersonName"
+            android:padding="10dp"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/txtRounds"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText3"
+            android:layout_marginTop="5dp"
+            android:background="#5d5d5d"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:hint="Number of Rounds?"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <EditText
+            android:id="@+id/txtTimePerRound"
+            android:layout_width="match_parent"
+            android:layout_height="51dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText3"
+            android:layout_marginTop="5dp"
+            android:background="#5d5d5d"
+            android:ems="10"
+            android:fontFamily="casual"
+            android:hint="Seconds Per Round?"
+            android:inputType="number"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:textColorHint="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnCreateGame2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/editText4"
+            android:layout_marginTop="26dp"
+            android:onClick="CreateGameOnClick"
+            android:padding="10dp"
+            android:text="Create!"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.05"
+            android:padding="20dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
+
