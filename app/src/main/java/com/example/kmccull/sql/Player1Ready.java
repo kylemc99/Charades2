@@ -4,20 +4,22 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+import android.view.View;
 
 public class Player1Ready extends AppCompatActivity {
-
+    //Intent Key
+    public final static String GameName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player1_ready);
 
-        Intent i =this.getIntent();
-        String Player1Name = getIntent().getStringExtra(GameCreate.Player1nameIntent);
-        String GameName = getIntent().getStringExtra(GameCreate.GameName2);
-        String r =  Player1Name;
-        Toast.makeText(Player1Ready.this,r,Toast.LENGTH_SHORT).show();
 
+    }
+    public void GotoGamePlay(View v){
+        Intent GotoGamePlay = new Intent(Player1Ready.this, Player1GamePlay.class);
+        GotoGamePlay.putExtra(GameName, getIntent().getStringExtra(GameCreate.GameName2));
+        startActivity(GotoGamePlay);
     }
 }

@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Timer2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#00d0ff"
+    tools:context="com.example.kmccull.sql.Player2GamePlay">
+
+    <Button
+        android:id="@+id/trueButton"
+        android:layout_width="180dp"
+        android:layout_height="55dp"
+        android:layout_alignParentBottom="true"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="39dp"
+        android:background="@android:color/holo_green_light"
+        android:fontFamily="casual"
+        android:text="Got IT"
+        android:onClick="GotItOnclick"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="396dp" />
+
+    <TextView
+        android:id="@+id/charadesCard"
+        android:layout_width="360dp"
+        android:layout_height="211dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@android:color/background_light"
+        tools:layout_editor_absoluteX="13dp"
+        tools:layout_editor_absoluteY="94dp" />
+
+    <TextView
+        android:id="@+id/TimerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/charadesCard"
+        android:layout_marginStart="55dp"
+        android:layout_marginTop="31dp"
+        android:text="Timer"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/PointsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/TimerText"
+        android:layout_alignBottom="@+id/TimerText"
+        android:layout_centerHorizontal="true"
+        android:text="Points"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/RoundText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/PointsText"
+        android:layout_alignEnd="@+id/charadesCard"
+        android:layout_marginEnd="42dp"
+        android:text="Round"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/Points"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/Timer"
+        android:layout_alignBottom="@+id/Timer"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/Round"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/RoundText"
+        android:layout_alignTop="@+id/Points"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/Timer"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/TimerText"
+        android:layout_below="@+id/TimerText"
+        android:layout_marginTop="37dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>

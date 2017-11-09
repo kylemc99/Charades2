@@ -24,7 +24,7 @@ public class HomePage extends AppCompatActivity {
     public String UserName;
     //Intent Key for UserName
     public final static String userName = "";
-    public final static String GameName = "";
+    public final static String GameName1 = "";
     public String Gname = "";
     // Declaring connection variables
     ConnectionClass connectionClass;  //Setup Database Connection
@@ -171,8 +171,7 @@ public class HomePage extends AppCompatActivity {
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(query);
                 Intent moveToReady = new Intent(HomePage.this, Player2Ready.class);
-                moveToReady.putExtra("GameName", Gname);
-                moveToReady.putExtra("Player2UserName", Player2Name);
+                moveToReady.putExtra(GameName1, Gname);
                 //Send Current UserName to Next Page
                 startActivity(moveToReady);
 

@@ -24,7 +24,10 @@
         <activity android:name=".RegisterUser" />
         <activity android:name=".GameCreate" />
         <activity android:name=".Player1Ready" />
-        <activity android:name=".Player2Ready"></activity>
+        <activity android:name=".Player2Ready" />
+        <activity android:name=".Player1GamePlay" />
+        <activity android:name=".Player2GamePlay" />
+        <activity android:name=".ScoreBoard"></activity>
     </application>
 
 </manifest>

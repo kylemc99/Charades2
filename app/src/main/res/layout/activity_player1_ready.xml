@@ -29,6 +29,7 @@
         android:background="@android:color/holo_green_light"
         android:fontFamily="casual"
         android:text="GO"
+        android:onClick="GotoGamePlay"
         android:textColor="@android:color/black"
         android:textSize="60sp"
         android:textStyle="bold"

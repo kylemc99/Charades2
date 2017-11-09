@@ -78,7 +78,7 @@ public class GameCreate extends AppCompatActivity {
                 if (con == null) {
                     z = "Error in connection with SQL server";
                 } else {
-                    String CreateGameSQL = "INSERT INTO Game VALUES('" +gameName+ "','" +Player1+ "',0,'',0,"+ gameRounds+", "+gameTime+", 1, 1, 0)";
+                    String CreateGameSQL = "INSERT INTO Game VALUES('" +gameName+ "','" +Player1+ "',0,'',0,"+ gameRounds+", "+gameTime+", 1, 1, 0, 1, 50)";
                     Statement stmt = con.createStatement();
                     stmt.executeUpdate(CreateGameSQL);
                     z = "Your Game has been created, Waiting on Player 2 to join";
