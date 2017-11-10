@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +19,11 @@ public class Player2GamePlay extends AppCompatActivity {
     ConnectionClass connectionClass;
     public Connection con;
     private Timer timer;
+    public Button button;
 
     int GameTime, TotalRounds,Player2RoundOn,Player2Points, Player2IdeaON ;
     String Player2Name, GameOver;
-    String[] z;
+    String[] z2;
 
 
 
@@ -30,9 +32,10 @@ public class Player2GamePlay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player2_game_play);
-        GetGameInfo getInfo = new GetGameInfo();
-        getInfo.execute("");
+        connectionClass = new ConnectionClass();
         RunGame();
+
+
 
 
     }
@@ -45,15 +48,17 @@ public class Player2GamePlay extends AppCompatActivity {
 
     }
     public void RunGame(){
+        GetGameInfo getInfo = new GetGameInfo();
+        getInfo.execute("");
         //Setup Timer and Run in a While Loop
         TextView Round = (TextView) findViewById(R.id.Round);
         TextView PointsView = (TextView) findViewById(R.id.Points);
         TextView TimeLeft = (TextView) findViewById(R.id.Timer);
 
-        Round.setText(z[3]);
-        PointsView.setText(z[5]);
-        TimeLeft.setText(z[2]);
-        Toast.makeText(Player2GamePlay.this,"Got here",Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), z2[1], Toast.LENGTH_LONG).show();
+        // PointsView.setText(z2[5]);
+      //   TimeLeft.setText(z2[2]);
+
 
 
         //After While Loop Check Incriment Player2RoundOn and Check if Player2RoundOn = TotalRounds
@@ -66,7 +71,9 @@ public class Player2GamePlay extends AppCompatActivity {
     private class GetGameInfo extends AsyncTask<String,String, String[]>
     {
 
-        String[] z =  {"","","","","","","",""};
+        String[] z= new String[1];
+
+        String a;
         String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
 
 
@@ -74,24 +81,23 @@ public class Player2GamePlay extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] r) {
 
-
-
+Toast.makeText(getApplicationContext(), r[0], Toast.LENGTH_LONG).show();
+            Toast.makeText(Player2GamePlay.this,"Got here",Toast.LENGTH_SHORT).show();
         }
 
         @Override
         protected String[] doInBackground(String... params) {
 
 
-
             try {
                 Connection con = connectionClass.CONN();
-                if (con == null) {
 
-                } else {
 
-                    String query = "select * from Game WHERE Game_Name = 'R11'";
+
+                    String query = "select * from Game WHERE Game_Name = 'R11';";
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
+
                     if(rs.next()){
                          z[0] = rs.getString("Player2_Username");
                          z[1]= rs.getString("Game_rounds"); //Name is the string label of a column in database, read through the select query
@@ -101,8 +107,7 @@ public class Player2GamePlay extends AppCompatActivity {
                          z[5] = rs.getString("Player2_Score");
                          z[6] = rs.getString("GameOver");
                         con.close();
-                        //Take information from Select Query and send to RunGame Method
-                       // RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
+
 
                     }
                     else {
@@ -111,13 +116,10 @@ public class Player2GamePlay extends AppCompatActivity {
 
 
                     //Take information from Select Query and send to RunGame Method
-              //      RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
+                   //RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
 
-
-                }
             }
-            catch (Exception ex)
-            {
+            catch (Exception ex) {
                 Log.d ("sql error", ex.getMessage());
             }
 

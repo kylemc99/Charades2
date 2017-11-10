@@ -14,11 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".HomePage" />
         <activity android:name=".RegisterUser" />
@@ -26,7 +22,14 @@
         <activity android:name=".Player1Ready" />
         <activity android:name=".Player2Ready" />
         <activity android:name=".Player1GamePlay" />
-        <activity android:name=".Player2GamePlay" />
+        <activity android:name=".Player2GamePlay">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+
+            </activity>
         <activity android:name=".ScoreBoard"></activity>
     </application>
 
