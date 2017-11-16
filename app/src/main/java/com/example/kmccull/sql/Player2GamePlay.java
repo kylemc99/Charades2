@@ -1,5 +1,6 @@
 package com.example.kmccull.sql;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,7 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.os.CountDownTimer;
+import java.util.concurrent.TimeUnit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -16,16 +18,18 @@ import java.sql.Time;
 import java.util.Timer;
 
 public class Player2GamePlay extends AppCompatActivity {
+    //Initialize Variables
     ConnectionClass connectionClass;
     public Connection con;
     private Timer timer;
     public Button button;
+    public TextView Round, PointsView, Timeleft, CharadesCard;
+    private static final String FORMAT = "%02d:%02d";
 
-    int GameTime, TotalRounds,Player2RoundOn,Player2Points, Player2IdeaON ;
+    int TotalRounds, Player2RoundOn, Player2Points, Player2IdeaON;
+    long GameTime;
     String Player2Name, GameOver;
-    String[] z2;
-
-
+    String[] z = new String[7];
 
 
     @Override
@@ -33,10 +37,13 @@ public class Player2GamePlay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player2_game_play);
         connectionClass = new ConnectionClass();
+        //Setup the TextViews
+        Round = (TextView) findViewById(R.id.Round);
+        PointsView = (TextView) findViewById(R.id.Points);
+        Timeleft = (TextView) findViewById(R.id.Timer);
+        CharadesCard = (TextView) findViewById(R.id.charadesCard);
+
         RunGame();
-
-
-
 
     }
 
@@ -44,45 +51,86 @@ public class Player2GamePlay extends AppCompatActivity {
 
 
     //Method for when a user clicks the Got it button
-    public void GotItOnclick(View view){
+    public void GotItOnclick(View view) {
+        //Increment Idea Variable and Database
+        Player2IdeaON ++;
+        IncrementIdea incrementIdea = new IncrementIdea();
+        incrementIdea.execute("");
+        //Increment Points
+        IncrementPoints incrementPoints = new IncrementPoints();
+        incrementPoints.execute("");
+        //Get a new Idea
+        GetIdea getIdea = new GetIdea();
+        getIdea.execute("");
+        //Get updated Points from Database
+        GetPoints getPoints = new GetPoints();
+        getPoints.execute("");
 
     }
-    public void RunGame(){
+
+    public void RunGame() {
+        //Get the Game Info
         GetGameInfo getInfo = new GetGameInfo();
         getInfo.execute("");
-        //Setup Timer and Run in a While Loop
-        TextView Round = (TextView) findViewById(R.id.Round);
-        TextView PointsView = (TextView) findViewById(R.id.Points);
-        TextView TimeLeft = (TextView) findViewById(R.id.Timer);
-
-        Toast.makeText(getApplicationContext(), z2[1], Toast.LENGTH_LONG).show();
-        // PointsView.setText(z2[5]);
-      //   TimeLeft.setText(z2[2]);
-
-
-
-        //After While Loop Check Incriment Player2RoundOn and Check if Player2RoundOn = TotalRounds
-        //If it does send to ScoreBoard
-        //Else Send to Player2Ready.Class
-
+        //Running this twice is the only way to make it work.
+        GetIdea getIdea = new GetIdea();
+        getIdea.execute("");
+        GetIdea getIdea2 = new GetIdea();
+        getIdea2.execute("");
     }
 
-    //Class for Getting information about game (Timer length, Round On, Total Rounds, Which Idea next)
-    private class GetGameInfo extends AsyncTask<String,String, String[]>
-    {
 
-        String[] z= new String[1];
+    //Class for Getting information about game (Timer length, Round On, Total Rounds, Which Idea next)
+    private class GetGameInfo extends AsyncTask<String, String, String[]> {
+
 
         String a;
         String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
 
 
-
         @Override
         protected void onPostExecute(String[] r) {
 
-Toast.makeText(getApplicationContext(), r[0], Toast.LENGTH_LONG).show();
-            Toast.makeText(Player2GamePlay.this,"Got here",Toast.LENGTH_SHORT).show();
+            //  Toast.makeText(getApplicationContext(), r[1], Toast.LENGTH_LONG).show();
+            //   Round = (TextView) findViewById(R.id.Round);
+            //   PointsView = (TextView) findViewById(R.id.Points);
+
+            PointsView.setText(z[5]);
+            Round.setText(z[3]);
+            Timeleft.setText(z[2]);
+            Player2IdeaON = Integer.valueOf(z[4]);
+            TotalRounds = Integer.valueOf(z[1]);
+            GameTime = java.lang.Long.valueOf(z[2]);
+            long a = GameTime;
+           // Toast.makeText(getApplicationContext(),z[4], Toast.LENGTH_LONG).show();
+            new CountDownTimer(90000, 1) {
+
+                public void onTick(long millisUntilFinished) {
+                    Timeleft.setText("" + String.format(FORMAT,
+                            TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
+                            TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
+                                    TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)
+                            )));
+                }
+
+                public void onFinish() {
+                    //Check to see if user is on last round
+                    if(z[3] == z[1]){
+                        Intent GotoScoreBoard = new Intent(Player2GamePlay.this, ScoreBoard.class);
+                        startActivity(GotoScoreBoard);
+                    }
+                    else{
+                        //Increment the Round the user is on
+                        IncrementRound incrementRound = new IncrementRound();
+                        incrementRound.execute("");
+                        //Send user back to Ready Page
+                        Intent GoBackToReady = new Intent(Player2GamePlay.this, ScoreBoard.class);
+                        startActivity(GoBackToReady);
+                    }
+                }
+
+
+            }.start();
         }
 
         @Override
@@ -93,40 +141,255 @@ Toast.makeText(getApplicationContext(), r[0], Toast.LENGTH_LONG).show();
                 Connection con = connectionClass.CONN();
 
 
+                String query = "select * from Game WHERE Game_Name = 'RR4521';";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
 
-                    String query = "select * from Game WHERE Game_Name = 'R11';";
-                    Statement stmt = con.createStatement();
-                    ResultSet rs = stmt.executeQuery(query);
-
-                    if(rs.next()){
-                         z[0] = rs.getString("Player2_Username");
-                         z[1]= rs.getString("Game_rounds"); //Name is the string label of a column in database, read through the select query
-                         z[2] = rs.getString("GameTime");
-                         z[3] = rs.getString("Player2_Round_On");
-                         z[4] = rs.getString("Player2IdeaOn");
-                         z[5] = rs.getString("Player2_Score");
-                         z[6] = rs.getString("GameOver");
-                        con.close();
-
-
-                    }
-                    else {
-                        Toast.makeText(Player2GamePlay.this,"Something Bad happened",Toast.LENGTH_SHORT).show();
-                    }
+                if (rs.next()) {
+                    z[0] = rs.getString("Player2_Username");
+                    z[1] = rs.getString("Game_rounds"); //Name is the string label of a column in database, read through the select query
+                    z[2] = String.valueOf(rs.getInt("Game_Time"));
+                    z[3] = rs.getString("Player2_Round_On");
+                    z[4] = rs.getString("Player2IdeaOn");
+                    z[5] = rs.getString("Player2_Score");
+                    z[6] = rs.getString("GameOver");
+                    con.close();
 
 
-                    //Take information from Select Query and send to RunGame Method
-                   //RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
+                } else {
+                    Toast.makeText(Player2GamePlay.this, "Something Bad happened", Toast.LENGTH_SHORT).show();
+                }
 
-            }
-            catch (Exception ex) {
-                Log.d ("sql error", ex.getMessage());
+
+                //Take information from Select Query and send to RunGame Method
+                //RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
+
+            } catch (Exception ex) {
+                Log.d("sql error", ex.getMessage());
             }
 
             return z;
         }
 
 
+    }
+
+    private class GetIdea extends AsyncTask<String, String, String> {
+        String a;
+        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            CharadesCard.setText(a);
+
+        }
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                Connection con = connectionClass.CONN();
+
+
+                String query = "Select * from Idea where IdeaID = '"+Player2IdeaON+"'";
+                Statement stmt = con.createStatement();
+                ResultSet rs = stmt.executeQuery(query);
+
+                if (rs.next()) {
+                    a = rs.getString("Idea");
+                    con.close();
+
+
+                } else {
+                    Toast.makeText(Player2GamePlay.this, "Something Bad happened", Toast.LENGTH_SHORT).show();
+                }
+
+
+                //Take information from Select Query and send to RunGame Method
+                //RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
+
+            } catch (Exception ex) {
+                Log.d("sql error", ex.getMessage());
+            }
+
+            return a;
+        }
+
+    }
+    private class IncrementPoints extends AsyncTask<String, String, String>{
+
+        String b;
+        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+           // PointsView.setText(b);
+
+        }
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                Connection con = connectionClass.CONN();        // Connect to database
+                if (con == null)
+                {
+                    b = "Check Your Internet Access!";
+                }
+                else
+                {
+                    // Change below query according to your own database.
+                    String IncrementPoints = "Update GAME "+"SET Player2_Score = Player2_Score + 1 "+ "Where Game_Name = 'R11'" ;
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate(IncrementPoints);
+                    con.close();
+
+                }
+
+            } catch (Exception ex) {
+                Log.d("sql error", ex.getMessage());
+            }
+
+            return b;
+        }
+
+    }
+    private class GetPoints extends AsyncTask<String, String, String>{
+
+        String b;
+        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+             PointsView.setText(b);
+
+        }
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                Connection con = connectionClass.CONN();        // Connect to database
+                if (con == null)
+                {
+                    b = "Check Your Internet Access!";
+                }
+                else
+                {
+                    // Change below query according to your own database.
+                    String getPoints = "Select Player2_Score from Game WHERE GAME_NAME = 'R11'" ;
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(getPoints);
+
+                    if (rs.next()) {
+                        b = rs.getString("Player2_Score");
+                        con.close();
+
+                    } else {
+                        Toast.makeText(Player2GamePlay.this, "Something Bad happened", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+            } catch (Exception ex) {
+                Log.d("sql error", ex.getMessage());
+            }
+
+            return b;
+        }
+
+    }
+    private class IncrementRound extends AsyncTask<String, String, String>{
+        String b;
+        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+
+        }
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                Connection con = connectionClass.CONN();        // Connect to database
+                if (con == null)
+                {
+                    b = "Check Your Internet Access!";
+                }
+                else
+                {
+                    // Change below query according to your own database.
+                    String IncrementPoints = "Update GAME "+"SET Player2_Round_On = Player2_Round_On + 1 "+ "Where Game_Name = 'R11'" ;
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate(IncrementPoints);
+                    con.close();
+
+                }
+
+            } catch (Exception ex) {
+                Log.d("sql error", ex.getMessage());
+            }
+
+            return b;
         }
     }
+    private class IncrementIdea extends AsyncTask<String, String, String>{
+        String b;
+        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+
+
+        }
+
+
+
+        @Override
+        protected String doInBackground(String... params) {
+
+
+            try {
+                Connection con = connectionClass.CONN();        // Connect to database
+                if (con == null)
+                {
+                    b = "Check Your Internet Access!";
+                }
+                else
+                {
+                    // Change below query according to your own database.
+                    String IncrementIdea = "Update GAME "+"SET Player2IdeaOn = Player2IdeaOn + 1 "+ "Where Game_Name = 'R11'" ;
+                    Statement stmt = con.createStatement();
+                    stmt.executeUpdate(IncrementIdea);
+                    con.close();
+
+                }
+
+            } catch (Exception ex) {
+                Log.d("sql error", ex.getMessage());
+            }
+
+            return b;
+        }
+    }
+
+}
 

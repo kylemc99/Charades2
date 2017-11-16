@@ -65,7 +65,9 @@
         android:layout_alignStart="@+id/scoreBoard"
         android:layout_below="@+id/scoreBoard"
         android:layout_marginTop="34dp"
-        android:text="Team One" />
+        android:text="Team One"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
 
     <TextView
         android:id="@+id/teamnametwoText"
@@ -74,23 +76,40 @@
         android:layout_alignEnd="@+id/teamnameoneText"
         android:layout_below="@+id/teamnameoneText"
         android:layout_marginTop="72dp"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+
         android:text="Team two" />
+
 
     <TextView
         android:id="@+id/TeamoneScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/teamnametwoText"
-        android:layout_alignEnd="@+id/scoreBoard"
-        android:text="Team One Score" />
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:layout_alignEnd="@+id/scoreBoard" />
 
     <TextView
-        android:id="@+id/teamoneScore"
+        android:id="@+id/TeamtwoScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/teamnametwoText"
-        android:layout_alignStart="@+id/TeamoneScore"
-        android:text="Team two score" />
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:layout_alignStart="@+id/TeamoneScore" />
+
+    <TextView
+        android:id="@+id/Winner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/teamnametwoText"
+        android:layout_below="@+id/teamnametwoText"
+        android:layout_marginTop="43dp"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:text="TextView" />
 
 
 </RelativeLayout>

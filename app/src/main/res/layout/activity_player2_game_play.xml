@@ -32,6 +32,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:background="@android:color/background_light"
+        android:textAlignment="center"
+        android:textSize="36sp"
         tools:layout_editor_absoluteX="13dp"
         tools:layout_editor_absoluteY="94dp" />
 

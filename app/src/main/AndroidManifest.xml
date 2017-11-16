@@ -23,14 +23,15 @@
         <activity android:name=".Player2Ready" />
         <activity android:name=".Player1GamePlay" />
         <activity android:name=".Player2GamePlay">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-
-            </activity>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ScoreBoard"></activity>
+
+
     </application>
 
 </manifest>

@@ -55,6 +55,7 @@ public class GameCreate extends AppCompatActivity {
 
 
 
+
         @Override
         protected void onPreExecute() {
             progressBar.setVisibility(View.VISIBLE);
@@ -70,7 +71,6 @@ public class GameCreate extends AppCompatActivity {
 
         @Override
         protected String doInBackground(String... params) {
-
 
 
             try {
