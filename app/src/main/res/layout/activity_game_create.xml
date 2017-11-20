@@ -67,24 +67,6 @@
             android:textStyle="bold" />
 
 
-        <EditText
-            android:id="@+id/txtTimePerRound"
-            android:layout_width="match_parent"
-            android:layout_height="51dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/editText3"
-            android:layout_marginTop="5dp"
-            android:background="#5d5d5d"
-            android:ems="10"
-            android:fontFamily="casual"
-            android:hint="Seconds Per Round?"
-            android:inputType="number"
-            android:padding="10dp"
-            android:textColor="#ffffff"
-            android:textColorHint="#ffffff"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
         <Button
             android:id="@+id/btnCreateGame2"
             android:layout_width="match_parent"

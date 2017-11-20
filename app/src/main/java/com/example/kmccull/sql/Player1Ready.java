@@ -3,12 +3,14 @@ package com.example.kmccull.sql;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 import android.view.View;
+
+
 
 public class Player1Ready extends AppCompatActivity {
     //Intent Key
-    public final static String GameName = "";
+    public final static String GameName3 = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +21,7 @@ public class Player1Ready extends AppCompatActivity {
     }
     public void GotoGamePlay(View v){
         Intent GotoGamePlay = new Intent(Player1Ready.this, Player1GamePlay.class);
-        GotoGamePlay.putExtra(GameName, getIntent().getStringExtra(GameCreate.GameName2));
+        GotoGamePlay.putExtra(GameName3, getIntent().getStringExtra(GameCreate.GameName2));
         startActivity(GotoGamePlay);
     }
 }

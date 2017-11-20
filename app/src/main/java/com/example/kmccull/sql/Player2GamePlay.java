@@ -25,6 +25,7 @@ public class Player2GamePlay extends AppCompatActivity {
     public Button button;
     public TextView Round, PointsView, Timeleft, CharadesCard;
     private static final String FORMAT = "%02d:%02d";
+    public final static String GameNamefromReady = "";
 
     int TotalRounds, Player2RoundOn, Player2Points, Player2IdeaON;
     long GameTime;
@@ -85,25 +86,24 @@ public class Player2GamePlay extends AppCompatActivity {
 
 
         String a;
-        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
+        String GameName = getIntent().getStringExtra(Player1Ready.GameName3);
 
 
         @Override
         protected void onPostExecute(String[] r) {
 
-            //  Toast.makeText(getApplicationContext(), r[1], Toast.LENGTH_LONG).show();
-            //   Round = (TextView) findViewById(R.id.Round);
-            //   PointsView = (TextView) findViewById(R.id.Points);
+
 
             PointsView.setText(z[5]);
             Round.setText(z[3]);
-            Timeleft.setText(z[2]);
+
             Player2IdeaON = Integer.valueOf(z[4]);
             TotalRounds = Integer.valueOf(z[1]);
+            Player2RoundOn = Integer.valueOf(z[3]);
             GameTime = java.lang.Long.valueOf(z[2]);
             long a = GameTime;
-           // Toast.makeText(getApplicationContext(),z[4], Toast.LENGTH_LONG).show();
-            new CountDownTimer(90000, 1) {
+
+            new CountDownTimer(9000, 1) {
 
                 public void onTick(long millisUntilFinished) {
                     Timeleft.setText("" + String.format(FORMAT,
@@ -115,8 +115,9 @@ public class Player2GamePlay extends AppCompatActivity {
 
                 public void onFinish() {
                     //Check to see if user is on last round
-                    if(z[3] == z[1]){
-                        Intent GotoScoreBoard = new Intent(Player2GamePlay.this, ScoreBoard.class);
+                    if(Player2RoundOn == TotalRounds){
+                        Intent GotoScoreBoard = new Intent(Player2GamePlay.this, ScoreBoardP2.class);
+                        GotoScoreBoard.putExtra(GameNamefromReady, getIntent().getStringExtra(Player2Ready.GameNamefromHomepage));
                         startActivity(GotoScoreBoard);
                     }
                     else{
@@ -124,7 +125,8 @@ public class Player2GamePlay extends AppCompatActivity {
                         IncrementRound incrementRound = new IncrementRound();
                         incrementRound.execute("");
                         //Send user back to Ready Page
-                        Intent GoBackToReady = new Intent(Player2GamePlay.this, ScoreBoard.class);
+                        Intent GoBackToReady = new Intent(Player2GamePlay.this, Player2Ready.class);
+                        //GoBackToReady.putExtra(Game)
                         startActivity(GoBackToReady);
                     }
                 }
@@ -141,7 +143,7 @@ public class Player2GamePlay extends AppCompatActivity {
                 Connection con = connectionClass.CONN();
 
 
-                String query = "select * from Game WHERE Game_Name = 'RR4521';";
+                String query = "select * from Game WHERE Game_Name = '"+GameName+"';";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
 
@@ -247,7 +249,7 @@ public class Player2GamePlay extends AppCompatActivity {
                 else
                 {
                     // Change below query according to your own database.
-                    String IncrementPoints = "Update GAME "+"SET Player2_Score = Player2_Score + 1 "+ "Where Game_Name = 'R11'" ;
+                    String IncrementPoints = "Update GAME "+"SET Player2_Score = Player2_Score + 1 "+ "Where Game_Name = '"+GameName+"'" ;
                     Statement stmt = con.createStatement();
                     stmt.executeUpdate(IncrementPoints);
                     con.close();
@@ -289,7 +291,7 @@ public class Player2GamePlay extends AppCompatActivity {
                 else
                 {
                     // Change below query according to your own database.
-                    String getPoints = "Select Player2_Score from Game WHERE GAME_NAME = 'R11'" ;
+                    String getPoints = "Select Player2_Score from Game WHERE GAME_NAME = '"+GameName+"'" ;
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(getPoints);
 
@@ -336,7 +338,7 @@ public class Player2GamePlay extends AppCompatActivity {
                 else
                 {
                     // Change below query according to your own database.
-                    String IncrementPoints = "Update GAME "+"SET Player2_Round_On = Player2_Round_On + 1 "+ "Where Game_Name = 'R11'" ;
+                    String IncrementPoints = "Update GAME "+"SET Player2_Round_On = Player2_Round_On + 1 "+ "Where Game_Name = '"+GameName+"'" ;
                     Statement stmt = con.createStatement();
                     stmt.executeUpdate(IncrementPoints);
                     con.close();
@@ -376,7 +378,7 @@ public class Player2GamePlay extends AppCompatActivity {
                 else
                 {
                     // Change below query according to your own database.
-                    String IncrementIdea = "Update GAME "+"SET Player2IdeaOn = Player2IdeaOn + 1 "+ "Where Game_Name = 'R11'" ;
+                    String IncrementIdea = "Update GAME "+"SET Player2IdeaOn = Player2IdeaOn + 1 "+ "Where Game_Name = '"+GameName+"'" ;
                     Statement stmt = con.createStatement();
                     stmt.executeUpdate(IncrementIdea);
                     con.close();

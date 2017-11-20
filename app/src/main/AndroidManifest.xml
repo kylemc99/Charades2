@@ -14,24 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".HomePage" />
-        <activity android:name=".RegisterUser" />
-        <activity android:name=".GameCreate" />
-        <activity android:name=".Player1Ready" />
-        <activity android:name=".Player2Ready" />
-        <activity android:name=".Player1GamePlay" />
-        <activity android:name=".Player2GamePlay">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScoreBoard"></activity>
+        <activity android:name=".HomePage" />
+        <activity android:name=".RegisterUser" />
+        <activity android:name=".GameCreate" />
+        <activity android:name=".Player1Ready" />
+        <activity android:name=".Player2Ready" />
+        <activity android:name=".Player1GamePlay">
 
+        </activity>
+        <activity android:name=".Player2GamePlay">
 
+        </activity>
+        <activity android:name=".ScoreBoard" />
+        <activity android:name=".ScoreBoardP2"></activity>
     </application>
 
 </manifest>

@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Timer;
 
-public class ScoreBoard extends AppCompatActivity {
+public class ScoreBoardP2 extends AppCompatActivity {
 
     //Initialize Variables
     ConnectionClass connectionClass;
@@ -23,28 +23,27 @@ public class ScoreBoard extends AppCompatActivity {
     private Timer timer;
     public Button button;
     public TextView Player1Score, Player2Score, Player1Name, Player2Name, Winner;
-    String GameName;
-    int  Player2Points, Player1Points;
+    String  GameName;
     String[] z = new String[4];
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_score_board);
+        setContentView(R.layout.activity_score_board_p2);
+
         connectionClass = new ConnectionClass();
         Player1Name = (TextView) findViewById(R.id.teamnameoneText);
         Player2Name = (TextView) findViewById(R.id.teamnametwoText);
         Player1Score = (TextView) findViewById(R.id.TeamoneScore);
         Player2Score = (TextView) findViewById(R.id.TeamtwoScore);
-        String GameNameP1 = getIntent().getStringExtra(Player1GamePlay.GameName4);
+        GameName = getIntent().getStringExtra(Player2GamePlay.GameNamefromReady);
         Winner = (TextView) findViewById(R.id.Winner);
         GetScores getScores = new GetScores();
         getScores.execute("");
     }
 
     public void GoHomeOnClick(View v){
-        Intent goHome = new Intent(ScoreBoard.this, MainActivity.class);
+        Intent goHome = new Intent(ScoreBoardP2.this, MainActivity.class);
         startActivity(goHome);
     }
 
@@ -94,7 +93,7 @@ public class ScoreBoard extends AppCompatActivity {
 
 
                 } else {
-                    Toast.makeText(ScoreBoard.this, "Something Bad happened", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ScoreBoardP2.this, "Something Bad happened", Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -111,3 +110,4 @@ public class ScoreBoard extends AppCompatActivity {
 
     }
 }
+
