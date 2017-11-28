@@ -88,7 +88,7 @@ public class Player1GamePlay extends AppCompatActivity {
         getIdea2.execute("");
     }
     private class testing extends AsyncTask<String, String, String[]>{
-         P1GameNametest = getIntent().getStringExtra(Player1Ready.GameNameFromReady);
+         String P1GameNametest = getIntent().getStringExtra(Player1Ready.GameNameFromReady);
 
 
         @Override
