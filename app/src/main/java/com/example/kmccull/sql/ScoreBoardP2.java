@@ -36,7 +36,7 @@ public class ScoreBoardP2 extends AppCompatActivity {
         Player2Name = (TextView) findViewById(R.id.teamnametwoText);
         Player1Score = (TextView) findViewById(R.id.TeamoneScore);
         Player2Score = (TextView) findViewById(R.id.TeamtwoScore);
-        GameName = getIntent().getStringExtra(Player2GamePlay.GameNamefromReady);
+        GameName = getIntent().getStringExtra(Player2GamePlay.GameNamefromGamePlay);
         Winner = (TextView) findViewById(R.id.Winner);
         GetScores getScores = new GetScores();
         getScores.execute("");

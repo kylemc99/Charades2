@@ -85,7 +85,7 @@ public class GameCreate extends AppCompatActivity {
 
                     Intent i = new Intent(GameCreate.this, Player1Ready.class);
                     //Send Game Name to next page
-                    i.putExtra(Player1nameIntent, Player1);
+
                     i.putExtra(GameName2, gameName);
                     //Send Current UserName to Next Page
                     startActivity(i);

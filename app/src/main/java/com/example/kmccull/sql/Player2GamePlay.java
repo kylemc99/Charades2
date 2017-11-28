@@ -25,7 +25,7 @@ public class Player2GamePlay extends AppCompatActivity {
     public Button button;
     public TextView Round, PointsView, Timeleft, CharadesCard;
     private static final String FORMAT = "%02d:%02d";
-    public final static String GameNamefromReady = "";
+    public final static String GameNamefromGamePlay = "";
 
     int TotalRounds, Player2RoundOn, Player2Points, Player2IdeaON;
     long GameTime;
@@ -86,7 +86,8 @@ public class Player2GamePlay extends AppCompatActivity {
 
 
         String a;
-        String GameName = getIntent().getStringExtra(Player1Ready.GameName3);
+        //Get the Name of the game from the previous Page
+        String GameName = getIntent().getStringExtra(Player2Ready.GameNamefromHomepage);
 
 
         @Override
@@ -117,7 +118,7 @@ public class Player2GamePlay extends AppCompatActivity {
                     //Check to see if user is on last round
                     if(Player2RoundOn == TotalRounds){
                         Intent GotoScoreBoard = new Intent(Player2GamePlay.this, ScoreBoardP2.class);
-                        GotoScoreBoard.putExtra(GameNamefromReady, getIntent().getStringExtra(Player2Ready.GameNamefromHomepage));
+                        GotoScoreBoard.putExtra(GameNamefromGamePlay, getIntent().getStringExtra(Player2Ready.GameNamefromHomepage));
                         startActivity(GotoScoreBoard);
                     }
                     else{
@@ -125,8 +126,8 @@ public class Player2GamePlay extends AppCompatActivity {
                         IncrementRound incrementRound = new IncrementRound();
                         incrementRound.execute("");
                         //Send user back to Ready Page
-                        Intent GoBackToReady = new Intent(Player2GamePlay.this, Player2Ready.class);
-                        //GoBackToReady.putExtra(Game)
+                        Intent GoBackToReady = new Intent(Player2GamePlay.this, Player2Ready2.class);
+                        GoBackToReady.putExtra(GameNamefromGamePlay, GameName);
                         startActivity(GoBackToReady);
                     }
                 }

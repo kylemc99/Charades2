@@ -25,14 +25,12 @@
         <activity android:name=".GameCreate" />
         <activity android:name=".Player1Ready" />
         <activity android:name=".Player2Ready" />
-        <activity android:name=".Player1GamePlay">
-
-        </activity>
-        <activity android:name=".Player2GamePlay">
-
-        </activity>
+        <activity android:name=".Player1GamePlay" />
+        <activity android:name=".Player2GamePlay" />
         <activity android:name=".ScoreBoard" />
-        <activity android:name=".ScoreBoardP2"></activity>
+        <activity android:name=".ScoreBoardP2" />
+        <activity android:name=".Player2Ready2" />
+        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>

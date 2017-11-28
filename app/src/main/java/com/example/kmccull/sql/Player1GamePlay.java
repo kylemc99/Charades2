@@ -25,11 +25,11 @@ public class Player1GamePlay extends AppCompatActivity {
     public Button button;
     public TextView Round, PointsView, Timeleft, CharadesCard;
     private static final String FORMAT = "%02d:%02d";
-    public final static String GameNamefromReady = "";
+    public final static String GameNamefromP1GamePlay = "";
 
     int TotalRounds, Player1RoundOn, Player1IdeaON;
 
-    String GameOver, GameName;
+    String GameOver, GameName, P1GameNametest;
     String[] z2 = new String[7];
 
     //Intent Key to Send to ScoreBoard
@@ -40,15 +40,14 @@ public class Player1GamePlay extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player1_game_play);
-        //GameName = getIntent().getStringExtra(Player1Ready.GameName3);
-        GameName = "R1";
+
+
         connectionClass = new ConnectionClass();
         //Setup the TextViews
         Round = (TextView) findViewById(R.id.Round);
         PointsView = (TextView) findViewById(R.id.Points);
         Timeleft = (TextView) findViewById(R.id.Timer);
         CharadesCard = (TextView) findViewById(R.id.charadesCard);
-
         RunGame();
 
     }
@@ -76,22 +75,34 @@ public class Player1GamePlay extends AppCompatActivity {
 
     public void RunGame() {
         //Get the Game Info
-        GetGameInfo getInfo = new GetGameInfo();
-        getInfo.execute("");
+
+        testing test = new testing();
+        test.execute("");
+
+       // P1GetGameInfo getInfo = new P1GetGameInfo();
+      //  getInfo.execute("");
         //Running this twice is the only way to make it work.
         GetIdea getIdea = new GetIdea();
         getIdea.execute("");
         GetIdea getIdea2 = new GetIdea();
         getIdea2.execute("");
     }
+    private class testing extends AsyncTask<String, String, String[]>{
+         P1GameNametest = getIntent().getStringExtra(Player1Ready.GameNameFromReady);
 
+
+        @Override
+        protected String[] doInBackground(String... strings) {
+            return new String[0];
+        }
+    }
 
     //Class for Getting information about game (Timer length, Round On, Total Rounds, Which Idea next)
-    private class GetGameInfo extends AsyncTask<String, String, String[]> {
+    public class P1GetGameInfo extends AsyncTask<String, String, String[]> {
 
 
         String a;
-
+        String P1GameName = getIntent().getStringExtra(Player1Ready.GameNameFromReady);
 
 
         @Override
@@ -122,7 +133,7 @@ public class Player1GamePlay extends AppCompatActivity {
                     //Check to see if user is on last round
                     if(Player1RoundOn == TotalRounds){
                         Intent GotoScoreBoard = new Intent(Player1GamePlay.this, ScoreBoard.class);
-                        GotoScoreBoard.putExtra(GameName4, getIntent().getStringExtra(Player1Ready.GameName3));
+                        GotoScoreBoard.putExtra(GameName4, getIntent().getStringExtra(Player1Ready.GameNameFromReady));
                         startActivity(GotoScoreBoard);
                     }
                     else{
@@ -148,11 +159,9 @@ public class Player1GamePlay extends AppCompatActivity {
                 Connection con = connectionClass.CONN();
 
 
-                String query = "select * from Game WHERE Game_Name = '"+GameName+"';";
+                String query = "select * from Game WHERE Game_Name = '"+P1GameName+"';";
                 Statement stmt = con.createStatement();
                 ResultSet rs = stmt.executeQuery(query);
-
-
                     z2[0] = rs.getString("Game_rounds"); //Name is the string label of a column in database, read through the select query
                     z2[1] = rs.getString("Player1_Round_On");
                     z2[2] = rs.getString("Player1IdeaOn");
