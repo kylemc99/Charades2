@@ -19,10 +19,21 @@ public class Player1Ready extends AppCompatActivity {
 
     }
     public void GotoGamePlay(View v){
-        String P1GameName = getIntent().getStringExtra(GameCreate.GameName2);
-        Toast.makeText(Player1Ready.this,P1GameName,Toast.LENGTH_SHORT).show();
-        Intent P1GotoGamePlay = new Intent(Player1Ready.this, Player1GamePlay.class);
-        P1GotoGamePlay.putExtra(GameNameFromReady, P1GameName);
-        startActivity(P1GotoGamePlay);
+        //Get Intents from Both locations we could be coming from
+        String P1GameName2 = getIntent().getStringExtra(GameCreate.GameName2);
+        String P1GameNamefromGamePlay = getIntent().getStringExtra(Player1GamePlay.GameNamefromP1GamePlay);
+        //if Intent from Gameplay is null use the intent from Gamecreate
+        if(P1GameNamefromGamePlay.length() == 0){
+            String P1GameName = getIntent().getStringExtra(GameCreate.GameName2);
+            Intent P1GotoGamePlay = new Intent(Player1Ready.this, Player1GamePlay.class);
+            P1GotoGamePlay.putExtra(GameNameFromReady, P1GameName);
+            startActivity(P1GotoGamePlay);
+        }
+        else {
+            String P1GameName = getIntent().getStringExtra(Player1GamePlay.GameNamefromP1GamePlay);
+            Intent P1GotoGamePlay = new Intent(Player1Ready.this, Player1GamePlay.class);
+            P1GotoGamePlay.putExtra(GameNameFromReady, P1GameName);
+            startActivity(P1GotoGamePlay);
+        }
     }
 }

@@ -28,9 +28,6 @@
         <activity android:name=".Player1GamePlay" />
         <activity android:name=".Player2GamePlay" />
         <activity android:name=".ScoreBoard" />
-        <activity android:name=".ScoreBoardP2" />
-        <activity android:name=".Player2Ready2" />
-        <activity android:name=".Test"></activity>
     </application>
 
 </manifest>

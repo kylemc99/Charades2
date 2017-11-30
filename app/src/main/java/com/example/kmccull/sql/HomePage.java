@@ -89,18 +89,7 @@ public class HomePage extends AppCompatActivity {
 
 
 
-        @Override
-        protected void onPostExecute(String r)
-        {
 
-
-            if(isSuccess)
-            {
-               // message = (TextView) findViewById(R.id.textView);
-              //  message.setText(name1);
-
-            }
-        }
         @Override
         protected String doInBackground(String... params)
         {
@@ -110,14 +99,14 @@ public class HomePage extends AppCompatActivity {
                 Connection con = connectionClass.CONN();        // Connect to database
 
 
-                    // Change below query according to your own database.
+                    // Find open games where Player2_username is null.
                     String query = "Select Game_Name from Game where Player2_Username = '' or Player2_Username IS NULL;";
                     Statement stmt = con.createStatement();
                     ResultSet rs = stmt.executeQuery(query);
 
                     while(rs.next())
                     {
-                        String toDo = rs.getString("Game_Name"); //Name is the string label of a column in database, read through the select query
+                        String toDo = rs.getString("Game_Name");
                         arrayAdapterToDo.add(toDo);
                         isSuccess=true;
 
@@ -145,18 +134,7 @@ public class HomePage extends AppCompatActivity {
 
 
 
-        @Override
-        protected void onPostExecute(String r)
-        {
 
-
-            if(isSuccess)
-            {
-                // message = (TextView) findViewById(R.id.textView);
-                //  message.setText(name1);
-
-            }
-        }
         @Override
         protected String doInBackground(String... params)
         {
@@ -166,7 +144,7 @@ public class HomePage extends AppCompatActivity {
                 Connection con = connectionClass.CONN();        // Connect to database
 
 
-                // Change below query according to your own database.
+                // Set Player2 name to current user
                 String query = "Update Game SET Player2_Username = '"+ Player2Name +"' Where Game_Name = '"+Gname+"'";
                 Statement stmt = con.createStatement();
                 stmt.executeUpdate(query);

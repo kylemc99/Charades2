@@ -1,5 +1,6 @@
 package com.example.kmccull.sql;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
@@ -37,28 +38,34 @@ public class ScoreBoard extends AppCompatActivity {
         Player2Name = (TextView) findViewById(R.id.teamnametwoText);
         Player1Score = (TextView) findViewById(R.id.TeamoneScore);
         Player2Score = (TextView) findViewById(R.id.TeamtwoScore);
-        String GameNameP1 = getIntent().getStringExtra(Player1GamePlay.GameName4);
+
+        String GameNameP1 = getIntent().getStringExtra(Player1GamePlay.GameNamefromP1GamePlay);
+        //Find the Intent of the location wer are coming from
+        if(GameNameP1.length()==0)
+        {
+            GameName = getIntent().getStringExtra(Player2GamePlay.GameNamefromGamePlay);
+        }
+        else {
+            GameName = getIntent().getStringExtra(Player1GamePlay.GameNamefromP1GamePlay);
+        }
+
         Winner = (TextView) findViewById(R.id.Winner);
         GetScores getScores = new GetScores();
         getScores.execute("");
     }
-
+    //If user clicks on Go Home Button, send user home
     public void GoHomeOnClick(View v){
         Intent goHome = new Intent(ScoreBoard.this, MainActivity.class);
         startActivity(goHome);
     }
 
+
     private class GetScores extends AsyncTask<String, String, String[]> {
 
 
-        String a;
-
-        @Override
+                @Override
         protected void onPostExecute(String[] r) {
 
-            //  Toast.makeText(getApplicationContext(), r[1], Toast.LENGTH_LONG).show();
-            //   Round = (TextView) findViewById(R.id.Round);
-            //   PointsView = (TextView) findViewById(R.id.Points);
 
             Player2Name.setText(z[1]);
             Player1Name.setText(z[0]);
@@ -96,10 +103,6 @@ public class ScoreBoard extends AppCompatActivity {
                 } else {
                     Toast.makeText(ScoreBoard.this, "Something Bad happened", Toast.LENGTH_SHORT).show();
                 }
-
-
-                //Take information from Select Query and send to RunGame Method
-                //RunGame(TotalRounds, GameTime, Player2RoundOn, Player2IdeaON, GameOver, Player2Points);
 
             } catch (Exception ex) {
                 Log.d("sql error", ex.getMessage());

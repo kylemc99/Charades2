@@ -30,9 +30,9 @@ public class GameCreate extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_create);
         connectionClass = new ConnectionClass();
+
         gmName = (EditText) findViewById(R.id.txtGameName);
         gmRounds = (EditText) findViewById(R.id.txtRounds);
-
         Player1Name = getIntent().getStringExtra(HomePage.userName);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
@@ -47,7 +47,7 @@ public class GameCreate extends AppCompatActivity {
         String z = "";
         Boolean isSuccess = false;
 
-
+        //Get information from user input
         String gameName = gmName.getText().toString();
         String gameRounds =gmRounds.getText().toString();
 
@@ -64,8 +64,6 @@ public class GameCreate extends AppCompatActivity {
         @Override
         protected void onPostExecute(String r) {
             progressBar.setVisibility(View.GONE);
-            Toast.makeText(GameCreate.this,r,Toast.LENGTH_SHORT).show();
-
 
         }
 
@@ -78,7 +76,8 @@ public class GameCreate extends AppCompatActivity {
                 if (con == null) {
                     z = "Error in connection with SQL server";
                 } else {
-                    String CreateGameSQL = "INSERT INTO Game VALUES('" +gameName+ "','" +Player1+ "',0,'',0,"+ gameRounds+", 90, 1, 1, 0, 1, 50)";
+                    //Insert Gameinfo into Game Table
+                    String CreateGameSQL = "INSERT INTO Game VALUES('" +gameName+ "','" +Player1+ "',0,'',0,"+ gameRounds+", 90, 1, 1, 0, 1, 30)";
                     Statement stmt = con.createStatement();
                     stmt.executeUpdate(CreateGameSQL);
                     z = "Your Game has been created, Waiting on Player 2 to join";

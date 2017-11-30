@@ -88,7 +88,6 @@ public class RegisterUser extends AppCompatActivity {
                         z = "Error in connection with SQL server";
                     } else {
                         String CreateUser = "INSERT INTO USERS VALUES('"+ userid +"','"+ password +"')";
-                        String Test = "INSERT INTO USERS VALUES('Big','Guy')";
                         Statement stmt = con.createStatement();
                         stmt.executeUpdate(CreateUser);
                         z = "Your user account has been created";

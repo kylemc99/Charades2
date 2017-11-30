@@ -19,10 +19,23 @@ public class Player2Ready extends AppCompatActivity {
     }
 
     public void GotoGamePlay(View v){
-        String GameName = getIntent().getStringExtra(HomePage.GameName1);
-        Intent GotoGamePlay = new Intent(Player2Ready.this, Player2GamePlay.class);
-        GotoGamePlay.putExtra(GameNamefromHomepage, GameName);
-        startActivity(GotoGamePlay);
+        String P2GameName2 = getIntent().getStringExtra(GameCreate.GameName2);
+        String P2GameNamefromGamePlay = getIntent().getStringExtra(Player2GamePlay.GameNamefromGamePlay);
+        //determine which intent to use depending on where we are coming from
+        if(P2GameNamefromGamePlay.length() == 0){
+            //user is coming from Homepage
+            String P2GameName = getIntent().getStringExtra(HomePage.GameName1);
+            Intent P2GotoGamePlay = new Intent(Player2Ready.this, Player1GamePlay.class);
+            P2GotoGamePlay.putExtra(GameNamefromHomepage, P2GameName);
+            startActivity(P2GotoGamePlay);
+        }
+        else {
+            //user is coming from GamePlay
+            String P2GameName = getIntent().getStringExtra(Player2GamePlay.GameNamefromGamePlay);
+            Intent P2GotoGamePlay = new Intent(Player2Ready.this, Player2GamePlay.class);
+            P2GotoGamePlay.putExtra(GameNamefromHomepage, P2GameName);
+            startActivity(P2GotoGamePlay);
+        }
     }
 
     }

@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ProgressBar pbbar;
 
     public final static String UserName = "";
-    public final static String UserId = "";
+
 
 
     @Override
